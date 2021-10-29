@@ -1,5 +1,4 @@
 extends layout
-
 block content
   div(class="container")
     div(class="row")
@@ -17,5 +16,20 @@ block content
             input(type="text", id="leaveTime", name="leaveTime")
           br
           input(type="submit", id="saveTime", value="Set Booking")
-
+  script.
+     flatpickr("#labDate",{
+    enableTime: false,
+    dateFormat: "m-d-Y "
+    });
+    flatpickr("#leaveTime",{
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K",
+    
+    });
+    flatpickr("#startTime",{
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K"
+    });
 

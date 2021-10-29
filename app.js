@@ -5,11 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 let cors = require('cors');
-
 var indexRouter = require('./routes/index');
 var bookingsRouter = require('./routes/bookings');
 let listsRouter = require('./routes/lists');
-
+let config = require('./routes/configs.js');
 var app = express();
 
 // view engine setup
