@@ -18,22 +18,39 @@ router.get('/', function(req, res, next) {
 router.post('/',function(req,res,next){
   console.log("Arrived");
   let query = {
-    bookDate: req.body.bookDate,
+    bookDate: req.body.labDate,
     startTime: req.body.starTime
   };
   console.log("created the object");
-  console.log(req.body.bookDate);
-
+  console.log(req.body.labDate);
+  let obj = {
+    name: req.body.username,
+    bookDate: new Date(req.body.labDate),
+    startTime: req.body.startTime,
+    stopTime: req.body.leaveTime,
+  };
   client.connect(async (err) => {
     console.log("starting to wait");
    return await collect.find(query) // TODO: Work on sending the request to the database.
       .sort()
       .toArray()
+      .catch(err => console.log(err))
       .then((items) => {
-        console.log(items);
-        res.status(200).redirect('/');
-        });
+        
+        if(items.length <= 0){
+          console.log(items);
+       
+        collect.insertOne(obj);
+    
+      }
+      else{
+        console.log("Match found, select new date");
+        //res.status(200).redirect('/');
+        }
+        return items;
+      });
     });
+    res.status(200).redirect('/lists');
 });
 
 
