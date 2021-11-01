@@ -18,29 +18,29 @@ const collect = client.db("mainDB").collection("CalLabBooking");
 // };
 
 router.get('/', (req, res) => {
+  res.render('list');
+});
 
-  let nowDate = new Date().toISOString();
+router.post('/', (req, res) => {
+  let nowDate = new Date();
   client.connect(async err => {
     // The server queries the db for any bookings >= the current date.
-    const query = {
-      bookDate: {
-        $gte: nowDate
-      }
-    };
+    const query = {bookDate: {$gt: nowDate}};
     console.log(nowDate);
 
     // The query results are returned and send to the page.
-    return collect
+    return await collect
       .find(query)
       .sort()
       .toArray()
       .then((items) => {
+        console.log(items);
         res.json(items);
         return items;
       })
       .catch((err) => console.error(`Failed to find documents: ${err}`));
   });
-  client.close();
-});
 
+});
+client.close();
 module.exports = router;

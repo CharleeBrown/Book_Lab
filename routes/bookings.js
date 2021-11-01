@@ -36,12 +36,9 @@ router.post('/',function(req,res,next){
       .toArray()
       .catch(err => console.log(err))
       .then((items) => {
-        
         if(items.length <= 0){
           console.log(items);
-       
         collect.insertOne(obj);
-    
       }
       else{
         console.log("Match found, select new date");

@@ -13,4 +13,13 @@ html
     link(rel= "stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css")
     link(rel= "stylesheet", href="https://unpkg.com/purecss@2.0.6/build/pure-min.css",integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5",crossorigin="anonymous")
   body
+    div(class="pure-menu pure-menu-horizontal" style="text-align:center;" id="menuClean")
+      a(href="/" class="pure-menu-heading pure-menu-link")| Calibration Lab
+      ul(class="pure-menu-list")
+        li(class="pure-menu-item")
+          a(class="pure-menu-link" href="/")|Create a Booking
+        li(class="pure-menu-item")
+          a(class="pure-menu-link" href="/lists")|Booking List
+        li(class="pure-menu-item")
+          a(class="pure-menu-link" href="/previous")|Past Booking
 block content
