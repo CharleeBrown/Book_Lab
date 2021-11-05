@@ -26,8 +26,8 @@ router.post('/',function(req,res,next){
   let obj = {
     name: req.body.username,
     bookDate: new Date(req.body.labDate),
-    startTime: req.body.startTime,
-    stopTime: req.body.leaveTime,
+    startTime: new Date(req.body.startTime),
+    stopTime: new Date(req.body.leaveTime),
   };
   client.connect(async (err) => {
     console.log("starting to wait");
