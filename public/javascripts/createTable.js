@@ -38,8 +38,8 @@ function setData(sets) {
 		//tbl.appendChild(tdd);
 	}
 	//console.log(sets.body.length)
-	console.log(sets)
-	console.log(data);
+	//console.log(sets)
+	//console.log(data);
 	// document.getElementById('test').innerHTML = sets.response;
 	// console.log(sets)
 	// console.log(sets.response.type);

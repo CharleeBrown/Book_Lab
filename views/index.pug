@@ -6,9 +6,6 @@ block content
         form(action="/bookings",method="post")
           label(for="username")|Enter Name
             input(type="text", name="username", placeholder="John Doe")
-          label(for="labDate")| Choose a date
-            input(type="text", id="labDate", name="labDate")
-          br
           label(for="startTime")|Choose a start time
             input(type="text", id="startTime", name="startTime")
           br
@@ -17,19 +14,15 @@ block content
           br
           input(type="submit", id="saveTime", value="Set Booking")
   script.
-     flatpickr("#labDate",{
-    enableTime: false,
-    dateFormat: "m-d-Y "
-    });
     flatpickr("#leaveTime",{
     enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
-    
+    time_24hr:false,
+    dateFormat: "m-d-Y h:i",
     });
+
     flatpickr("#startTime",{
     enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K"
+    time_24hr:false,
+    dateFormat: "m-d-Y h:i",
     });
 

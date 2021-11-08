@@ -20,35 +20,38 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   console.log("Arrived");
   let query = {
-    bookDate: req.body.labDate,
     startTime: req.body.starTime
   };
-  console.log("created the object");
-  console.log(req.body.labDate);
+  //console.log("created the object");
+  //console.log(req.body.labDate);
+  //let date = new Date(req.body.labDate).toISOString();
+  let start = new Date(req.body.startTime);
+  let leave = new Date(req.body.leaveTime);
+  console.log(start);
+  console.log(leave);
   let obj = {
     name: req.body.username,
-    bookDate: new Date(req.body.labDate),
-    startTime: new Date(req.body.startTime),
-    stopTime: new Date(req.body.leaveTime),
+    startTime: start,
+    stopTime: leave,
   };
   client.connect(async (err) => {
-    console.log("starting to wait");
+    //console.log("starting to wait");
     return await collect.find(query) // TODO: Work on sending the request to the database.
       .sort()
       .toArray()
       .catch(err => console.log(err))
       .then((items) => {
         if (items.length <= 0) {
-          console.log(items);
+          //    console.log(items);
           collect.insertOne(obj);
         } else {
-          console.log("Match found, select new date");
+          // console.log("Match found, select new date");
           //res.status(200).redirect('/');
         }
         return items;
       });
   });
-  res.status(200).redirect('/lists');
+  res.status(200).redirect('/main');
 });
 
 

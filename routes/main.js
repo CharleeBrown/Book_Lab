@@ -12,9 +12,9 @@ router.get('/', function (req, res, next) { // Main endpoint for GET requests.
 
 
 router.post('/', function (req, res, next) {  // Main endpoint for POST requests.
-	let nowDate = new Date('11/01/2021');
+	let nowDate = new Date(Date.now());
 	client.connect(async err => {
-		const query = {bookDate: {$gte: nowDate} }; // The server queries the db for any bookings >= the current date.
+		const query = {startTime: {$gte: nowDate} }; // The server queries the db for any bookings >= the current date.
 		console.log(nowDate);
 			 return await collect
 			.find(query)

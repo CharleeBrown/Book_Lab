@@ -1,8 +1,80 @@
+
+let templates = {
+	popupIsAllDay: function () {
+		return 'All Day';
+	},
+	popupStateFree: function () {
+		return 'Free';
+	},
+	popupStateBusy: function () {
+		return 'Busy';
+	},
+	titlePlaceholder: function () {
+		return 'Subject';
+	},
+	locationPlaceholder: function () {
+		return 'Location';
+	},
+	startDatePlaceholder: function () {
+		return 'Start date';
+	},
+	endDatePlaceholder: function () {
+		return 'End date';
+	},
+	popupSave: function () {
+		return 'Save';
+	},
+	popupUpdate: function () {
+		return 'Update';
+	},
+	popupDetailDate: function (isAllDay, start, end) {
+		var isSameDate = moment(start).isSame(end);
+		var endFormat = (isSameDate ? '' : 'm-dd-YYYY') + 'hh:mm a';
+
+		if (isAllDay) {
+			return moment(start).format('MM.DD.YYYY') + (isSameDate ? '' : ' - ' + moment(end).format('MM.DD.YYYY'));
+		}
+
+		return (moment(start).format('MM.DD.YYYY hh:mm a') + ' - ' + moment(end).format(endFormat));
+	},
+	popupDetailLocation: function (schedule) {
+		return 'Location : Cal Lab';
+	},
+	popupDetailUser: function (schedule) {
+		return 'User : ' + (schedule.attendees || []).join(', ');
+	},
+	popupDetailState: function (schedule) {
+		return 'State : ' + schedule.state || 'Busy';
+	},
+	popupDetailRepeat: function (schedule) {
+		return 'Repeat : ' + schedule.recurrenceRule;
+	},
+	popupDetailBody: function (schedule) {
+		return 'Body : ' + schedule.body;
+	},
+	popupEdit: function () {
+		return 'Edit';
+	},
+	popupDelete: function (_id) {
+
+		return 'Delete';
+	}
+};
+let cal = new tui.Calendar('#calendar', {
+	defaultView: 'month', // monthly view option
+	scheduleView: true,
+	useCreationPopup: true,
+	useDetailPopup: true,
+});
+
 function getDates(url) {
 	fetch(url, {
-			headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
 			method: 'POST'
-				})
+		})
 		.then(response => response.json())
 		.then(data => {
 			let x = 1;
@@ -11,28 +83,25 @@ function getDates(url) {
 			let jsonres = JSON.parse(newdata);
 			for (let i = 0; i < jsonres.length; i++) {
 				let newObj = {
-					'id': x.toString(),
+					'id': jsonres[i]['_id'],
 					calendarId: x.toString(),
 					title: jsonres[i]['name'],
 					category: 'time',
 					dueDateClass: '',
 					start: jsonres[i]['startTime'],
-					end: jsonres[i]['stopTime']
+					end: jsonres[i]['stopTime'],
+					silent: false
 				};
-			newArray.push(newObj);
+				newArray.push(newObj);
 				x += 1;
-			};
-			let cal = new tui.Calendar('#calendar', {
-				defaultView: 'month', // monthly view option
-				scheduleView: true,
-				useCreationPopup:false,
-				useDetailPopup:false,
-			});
+			}
+
 			cal.createSchedules(newArray);
 			console.log(newArray);
 			//createDates(data
 		});
-};
+}
+
 
 function setDates(sets) {
 	let newCal = document.getElementById('calendar');
