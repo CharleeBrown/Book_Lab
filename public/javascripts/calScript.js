@@ -1,5 +1,7 @@
-
 let templates = {
+	time: function(schedule) {
+		return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
+	},
 	popupIsAllDay: function () {
 		return 'All Day';
 	},
@@ -32,7 +34,7 @@ let templates = {
 		var endFormat = (isSameDate ? '' : 'm-dd-YYYY') + 'hh:mm a';
 
 		if (isAllDay) {
-			return moment(start).format('MM.DD.YYYY') + (isSameDate ? '' : ' - ' + moment(end).format('MM.DD.YYYY'));
+			return moment(start).format('MM.DD.YYYY hh:mm a') + (isSameDate ? '' : ' - ' + moment(end).format('MM.DD.YYYY hh:mm a'));
 		}
 
 		return (moment(start).format('MM.DD.YYYY hh:mm a') + ' - ' + moment(end).format(endFormat));
@@ -65,6 +67,7 @@ let cal = new tui.Calendar('#calendar', {
 	scheduleView: true,
 	useCreationPopup: true,
 	useDetailPopup: true,
+	template:templates
 });
 
 function getDates(url) {
@@ -125,7 +128,8 @@ function setDates(sets) {
 	let cal = new tui.Calendar('#calendar', {
 		defaultView: 'month', // monthly view option
 		taskView: ['task'],
-		scheduleView: false
+		scheduleView: true, // schedule view option
+		taskView:true, // schedule view option
 	});
 	cal.createSchedules;
 	// sessionStorage.setItem('schedule', JSON.stringify(newArray));
