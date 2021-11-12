@@ -18,13 +18,10 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
-  console.log("Arrived");
   let query = {
-    startTime: req.body.starTime
+    startTime: req.body.starTime // A query
   };
-  //console.log("created the object");
-  //console.log(req.body.labDate);
-  //let date = new Date(req.body.labDate).toISOString();
+
   let start = new Date(req.body.startTime);
   let leave = new Date(req.body.leaveTime);
   console.log(start);
@@ -44,9 +41,7 @@ router.post('/', function (req, res, next) {
         if (items.length <= 0) {
           //    console.log(items);
           collect.insertOne(obj);
-        } else {
-          // console.log("Match found, select new date");
-          //res.status(200).redirect('/');
+
         }
         return items;
       });

@@ -1,8 +1,11 @@
 let templates = {
 	time: function(schedule) {
-		return schedule.title + ' <i class="fa fa-refresh"></i>' + schedule.start;
+		let scheduleTime = new Date(schedule.start);
+		let scheduleStops = new Date(schedule.end);
+		return scheduleTime.toLocaleTimeString([], {timeStyle: 'short'}) + '  ' + schedule.title;
 	},
 	popupIsAllDay: function () {
+
 		return 'All Day';
 	},
 	popupStateFree: function () {
@@ -30,17 +33,20 @@ let templates = {
 		return 'Update';
 	},
 	popupDetailDate: function (isAllDay, start, end) {
+		let newStart = new Date(start);
+		let newStop = new Date(end);
 		var isSameDate = moment(start).isSame(end);
-		var endFormat = (isSameDate ? '' : 'm-dd-YYYY') + 'hh:mm a';
+		var endFormat = (isSameDate ? '' : 'MM.DD.YYYY') + 'hh:mm a';
 
 		if (isAllDay) {
-			return moment(start).format('MM.DD.YYYY hh:mm a') + (isSameDate ? '' : ' - ' + moment(end).format('MM.DD.YYYY hh:mm a'));
+			return moment(start).format('MM.DD.YYYY hh:mm a') + (isSameDate ? '' : ' boo- ' + moment(end).format('MM.DD.YYYY hh:mm a'));
 		}
 
-		return (moment(start).format('MM.DD.YYYY hh:mm a') + ' - ' + moment(end).format(endFormat));
+		return newStart.toLocaleTimeString()  + ' - ' + newStop.toLocaleTimeString();
 	},
 	popupDetailLocation: function (schedule) {
-		return 'Location : Cal Lab';
+		return schedule.locationPlaceholder  = ' Cal Lab';
+		//return 'Location : Cal Lab';
 	},
 	popupDetailUser: function (schedule) {
 		return 'User : ' + (schedule.attendees || []).join(', ');
@@ -52,20 +58,20 @@ let templates = {
 		return 'Repeat : ' + schedule.recurrenceRule;
 	},
 	popupDetailBody: function (schedule) {
-		return 'Body : ' + schedule.body;
+		return 'Body : ' + schedule.body + 'asdf';
 	},
 	popupEdit: function () {
-		return 'Edit';
+		return '';
 	},
-	popupDelete: function (_id) {
-
-		return 'Delete';
+	popupDelete: function (schedule) {
+		
+		return '';
 	}
 };
 let cal = new tui.Calendar('#calendar', {
 	defaultView: 'month', // monthly view option
 	scheduleView: true,
-	useCreationPopup: true,
+	useCreationPopup: false,
 	useDetailPopup: true,
 	template:templates
 });
