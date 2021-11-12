@@ -16,8 +16,12 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-
 router.post('/', function (req, res, next) {
+  let newStart = (req.body.startTime);
+  // console.log(newStart.toISOString());
+  // console.log(newStart.toLocaleDateString());
+  
+
   let query = {
     startTime: req.body.starTime // A query
   };
@@ -39,9 +43,7 @@ router.post('/', function (req, res, next) {
       .catch(err => console.log(err))
       .then((items) => {
         if (items.length <= 0) {
-          //    console.log(items);
           collect.insertOne(obj);
-
         }
         return items;
       });

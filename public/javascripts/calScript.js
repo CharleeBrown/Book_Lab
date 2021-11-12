@@ -1,8 +1,10 @@
 let templates = {
-	time: function(schedule) {
+	time: function (schedule) {
 		let scheduleTime = new Date(schedule.start);
 		let scheduleStops = new Date(schedule.end);
-		return scheduleTime.toLocaleTimeString([], {timeStyle: 'short'}) + '  ' + schedule.title;
+		return scheduleTime.toLocaleTimeString([], {
+			timeStyle: 'short'
+		}) + '  ' + schedule.title;
 	},
 	popupIsAllDay: function () {
 
@@ -39,13 +41,13 @@ let templates = {
 		var endFormat = (isSameDate ? '' : 'MM.DD.YYYY') + 'hh:mm a';
 
 		if (isAllDay) {
-			return moment(start).format('MM.DD.YYYY hh:mm a') + (isSameDate ? '' : ' boo- ' + moment(end).format('MM.DD.YYYY hh:mm a'));
+			return newStart.toLocaleString('en-US', { hour: 'numeric', hour12: true } + (isSameDate ? '' :  newStop.toLocaleString('en-US', { hour: 'numeric', hour12: true })));
 		}
 
-		return newStart.toLocaleTimeString()  + ' - ' + newStop.toLocaleTimeString();
+		return newStart.toLocaleTimeString() + ' - ' + newStop.toLocaleTimeString();
 	},
 	popupDetailLocation: function (schedule) {
-		return schedule.locationPlaceholder  = ' Cal Lab';
+		return schedule.locationPlaceholder = ' Cal Lab';
 		//return 'Location : Cal Lab';
 	},
 	popupDetailUser: function (schedule) {
@@ -58,22 +60,27 @@ let templates = {
 		return 'Repeat : ' + schedule.recurrenceRule;
 	},
 	popupDetailBody: function (schedule) {
-		return 'Body : ' + schedule.body + 'asdf';
+		return 'Body : ' + schedule.body ;
 	},
 	popupEdit: function () {
 		return '';
 	},
 	popupDelete: function (schedule) {
-		
+
 		return '';
 	}
 };
 let cal = new tui.Calendar('#calendar', {
 	defaultView: 'month', // monthly view option
-	scheduleView: true,
+	scheduleView: false,
 	useCreationPopup: false,
-	useDetailPopup: true,
-	template:templates
+	useDetailPopup: false,
+	template: templates
+});
+cal.on({
+	'clickSchedule':function(e){
+		return
+	}
 });
 
 function getDates(url) {
@@ -97,14 +104,13 @@ function getDates(url) {
 					title: jsonres[i]['name'],
 					category: 'time',
 					dueDateClass: '',
-					start: jsonres[i]['startTime'],
-					end: jsonres[i]['stopTime'],
+					start: jsonres[i]['startTime'].toString(),
+					end: jsonres[i]['stopTime'].toString(),
 					silent: false
 				};
 				newArray.push(newObj);
 				x += 1;
 			}
-
 			cal.createSchedules(newArray);
 			console.log(newArray);
 			//createDates(data
@@ -112,55 +118,34 @@ function getDates(url) {
 }
 
 
-function setDates(sets) {
-	let newCal = document.getElementById('calendar');
-	console.log(sets);
-	let x = 1;
-	let newArray = [];
-	for (let i in sets) {
-		let newObj = {
-			"id": x,
-			calendarId: x,
-			title: sets[i].name,
-			category: 'Cal Lab',
-			dueDateClass: '',
-			start: sets[i].startTime,
-			end: sets[i].stopTime
-		};
-		x += 1;
-		newArray.push(newObj);
-	}
+// function setDates(sets) {
+// 	let newCal = document.getElementById('calendar');
+// 	console.log(sets);
+// 	let x = 1;
+// 	let newArray = [];
+// 	for (let i in sets) {
+// 		let newObj = {
+// 			"id": x,
+// 			calendarId: x,
+// 			title: sets[i].name,
+// 			category: 'Cal Lab',
+// 			dueDateClass: '',
+// 			start: sets[i].startTime,
+// 			end: sets[i].stopTime
+// 		};
+// 		console.log(newObj);
+// 		x += 1;
+// 		newArray.push(newObj);
+// 	}
 
-	let cal = new tui.Calendar('#calendar', {
-		defaultView: 'month', // monthly view option
-		taskView: ['task'],
-		scheduleView: true, // schedule view option
-		taskView:true, // schedule view option
-	});
-	cal.createSchedules;
-	// sessionStorage.setItem('schedule', JSON.stringify(newArray));
-
-	// cal.createSchedules(JSON.parse(sessionStorage.getItem('schedule')));
-	// console.log("test");
-	// console.log("test");
-	// let newa = JSON.parse(await sessionStorage.getItem('schedule'));
-	// console.log(newa);
-	// // console.log(newArray);
-	// return newArray;
-}
+// 	let cal = new tui.Calendar('#calendar', {
+// 		defaultView: 'month', // monthly view option
+// 		taskView: ['task'],
+// 		scheduleView: true, // schedule view option
+// 		taskView: true, // schedule view option
+// 	});
+// 	cal.createSchedules;
+// }
 
 function createDates(dates) {
-
-
 }
-
-// function getDates(url, func) {
-// 	let xht = new XMLHttpRequest();
-// 	xht.onreadystatechange = function () {
-// 		if (this.readyState == 4 && this.status == 200) {
-// 			func(this);
-// 		}
-// 	};
-// 	xht.open('POST', url, true);
-// 	xht.send();
-// }
