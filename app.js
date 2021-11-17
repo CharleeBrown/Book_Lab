@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var bookingsRouter = require('./routes/bookings');
 let listsRouter = require('./routes/lists');
 let mainRouter = require('./routes/main');
+
 let config = require('./routes/configs.js');
 
 var app = express();
@@ -36,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/lists', listsRouter);
 app.use('/main', mainRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

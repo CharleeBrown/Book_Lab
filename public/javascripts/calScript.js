@@ -72,7 +72,8 @@ let templates = {
 };
 let cal = new tui.Calendar('#calendar', {
 	defaultView: 'month', // monthly view option
-	scheduleView: false,
+	scheduleView: ['time'],
+	taskView:true,
 	useCreationPopup: false,
 	useDetailPopup: false,
 	template: templates
