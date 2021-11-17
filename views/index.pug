@@ -18,11 +18,17 @@ block content
     enableTime: true,
     time_24hr:false,
     dateFormat: "m-d-Y h:i",
+    onChange:function(instance){
+      console.log(instance.value);
+    }
     });
 
     flatpickr("#startTime",{
     enableTime: true,
     time_24hr:false,
     dateFormat: "m-d-Y h:i",
+    onChange:function(instance){
+      console.log(instance.ReturnValue);
+    }
     });
 

@@ -150,3 +150,7 @@ function getDates(url) {
 
 function createDates(dates) {
 }
+let timeCount = document.getElementById('startTime');
+timeCount.addEventListener('onChange',function(){
+	console.log("test");
+});
