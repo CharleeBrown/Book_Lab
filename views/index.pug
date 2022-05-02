@@ -1,7 +1,7 @@
 extends layout
 block content
   div(class="container")
-    div(class="row")
+    div(class="row" id="containRow")
       div(class="col-lg-6", id="mainCol")
         form(action="/bookings",method="post")
           label(for="username")|Enter Name
